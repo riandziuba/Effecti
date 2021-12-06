@@ -1,0 +1,19 @@
+{
+    "name": "riandziuba/effecti",
+    "description": "Avalição para effecti",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Riandziuba\\Effecti\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rian",
+            "email": "riandziuba@gmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.10"
+    }
+}
