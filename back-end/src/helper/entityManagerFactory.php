@@ -21,7 +21,7 @@ class entityManagerFactory
         );
         $connection = [
             'driver' => 'pdo_sqlite',
-            'user' => 'root',
+            'user' => '',
             'password' => '',
             'path' => $rootDir.'/DB/effecti.db'
         ];

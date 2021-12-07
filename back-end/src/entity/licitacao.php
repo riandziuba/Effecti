@@ -6,35 +6,34 @@ namespace Riandziuba\Effecti\entity;
  * */
 class licitacao {
     /**
-     * @Column(type="integer", name="licitacao_id")
+     * @Column(type="string", name="lic_link")
      * @Id
-     * @GeneratedValue
      */
-    private $id;
+    private string $link ;
     /** 
      * @Column(type="string", name="lic_title")
     */
-    private $title;
+    private string $title;
     /** 
      * @Column(type="string", name="lic_date", nullable=true)
     */
-    private $date;
+    private string $date;
     /** 
      * @Column(type="integer", name="lic_uasg_code", nullable=true)
     */
-    private $uasg_code;
+    private int $uasg_code;
     /** 
      * @Column(type="string", length="500",name="lic_object", nullable=true)
     */
-    private $object;
+    private string $object;
 
     /** 
      * @Column(type="integer",name="lic_read", nullable=true)
     */
     private $read;
     
-    function getId() {
-        return $this->id;
+    function getLink() {
+        return $this->link;
     }
 
     function getTitle() {
@@ -53,8 +52,8 @@ class licitacao {
         return $this->object;
     }
 
-    function setId($id): void {
-        $this->id = $id;
+    function setLink($link): void {
+        $this->link = $link;
     }
 
     function setTitle($title): void {
