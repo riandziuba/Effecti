@@ -20,13 +20,18 @@ class licitacao {
     */
     private $date;
     /** 
-     * @Column(type="int", name="lic_uasg_code", nullable=true)
+     * @Column(type="integer", name="lic_uasg_code", nullable=true)
     */
     private $uasg_code;
     /** 
      * @Column(type="string", length="500",name="lic_object", nullable=true)
     */
     private $object;
+
+    /** 
+     * @Column(type="integer",name="lic_read", nullable=true)
+    */
+    private $read;
     
     function getId() {
         return $this->id;
@@ -68,5 +73,15 @@ class licitacao {
         $this->object = $object;
     }
 
+    public function getRead()
+    {
+        return $this->read;
+    }
 
+    public function setRead($read)
+    {
+        $this->read = $read;
+
+        return $this;
+    }
 }

@@ -49,6 +49,8 @@ final class Versions
   'psr/cache' => '1.0.1@d11b50ad223250cf17b86e38383413f5a6764bf8',
   'psr/container' => '1.1.2@513e0666f7216c7459170d56df27dfcefe1689ea',
   'psr/log' => '1.1.4@d49695b909c3b7628b6289db5479a1c204601f11',
+  'symfony/cache' => 'v5.4.0@d97d6d7f46cb69968f094e329abd987d5ee17c79',
+  'symfony/cache-contracts' => 'v2.5.0@ac2e168102a2e06a2624f0379bde94cd5854ced2',
   'symfony/console' => 'v5.4.0@ec3661faca1d110d6c307e124b44f99ac54179e3',
   'symfony/deprecation-contracts' => 'v2.5.0@6f981ee24cf69ee7ce9736146d1c57c2780598a8',
   'symfony/polyfill-ctype' => 'v1.23.0@46cd95797e9df938fdd2b03693b5fca5e64b01ce',
@@ -60,7 +62,8 @@ final class Versions
   'symfony/polyfill-php80' => 'v1.23.1@1100343ed1a92e3a38f9ae122fc0eb21602547be',
   'symfony/service-contracts' => 'v2.5.0@1ab11b933cd6bc5464b08e81e2c5b07dec58b0fc',
   'symfony/string' => 'v5.4.0@9ffaaba53c61ba75a3c7a3a779051d1e9ec4fd2d',
-  'riandziuba/effecti' => '1.0.0+no-version-set@',
+  'symfony/var-exporter' => 'v5.4.0@d59446d6166b1643a8a3c30c2fa8e16e51cdbde7',
+  'riandziuba/effecti' => 'dev-main@f5e12a62479b653ba79f3e6cdb20fa09cec7983e',
 );
 
     private function __construct()

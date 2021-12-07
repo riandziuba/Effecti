@@ -1,14 +1,12 @@
-
-
 <?php
- 
-namespace Riandziuba\Effecti\helper;
+ namespace Riandziuba\Effecti\helper;
+
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 
-class EntityManagerFactory
+class entityManagerFactory
 {
     /**
      * @return EntityManagerInterface
@@ -25,7 +23,7 @@ class EntityManagerFactory
             'driver' => 'pdo_sqlite',
             'user' => 'root',
             'password' => '',
-            'path' => ''
+            'path' => $rootDir.'/DB/effecti.db'
         ];
 
         return EntityManager::create($connection, $config);
