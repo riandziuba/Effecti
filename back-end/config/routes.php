@@ -1,7 +1,8 @@
 <?php
 
  use Riandziuba\Effecti\controller\
- {siteExtractor};
+ {getLicitacao, siteExtractor};
    return [
-       '/extract' => siteExtractor::class
+       '/extract' => siteExtractor::class,
+       '/licitacoes' => getLicitacao::class
    ];

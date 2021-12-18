@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/default.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue darken-3">
+            <a href="#" class="brand-logo center white-text">effecti</a>
+
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col s12">
+            <div class="input-field inline col s10 m2 offset-s1 offset-m1">
+                <input id="search" type="text" class="validate">
+                <label for="search">Buscar</label>
+            </div>
+            <div class="col s12 m10 offset-m1 ">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Item Name</th>
+                            <th>Item Price</th>
+                            <th>Read</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Alvin</td>
+                            <td>Eclair</td>
+                            <td>$0.87</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="teste" />
+                                    <span></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alan</td>
+                            <td>Jellybean</td>
+                            <td>$3.76</td>
+                            <td>
+                                
+                                <label>
+                                    <input type="checkbox" name="teste" />
+                                    <span></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jonathan</td>
+                            <td>Lollipop</td>
+                            <td>$7.00</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="teste" />
+                                    <span></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <script src="js/materialize.min.js">
+        M.AutoInit();
+    </script>
+    <script>
+        FormData1 = new FormData();
+        FormData1.append('title', 'Teste');
+        fetch('http://localhost/extrator/back-end/licitacoes', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: FormData1,
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error, data) => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+
+</html>
