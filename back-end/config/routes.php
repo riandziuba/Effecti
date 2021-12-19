@@ -1,8 +1,9 @@
 <?php
 
  use Riandziuba\Effecti\controller\
- {getLicitacao, siteExtractor};
+ {getBidding, siteExtractor, setRead};
    return [
        '/extract' => siteExtractor::class,
-       '/licitacoes' => getLicitacao::class
+       '/biddings' => getBidding::class,
+       '/read' => setRead::class
    ];

@@ -12,93 +12,138 @@
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper blue darken-3">
-            <a href="#" class="brand-logo center white-text">effecti</a>
+    <div id="app">
+        <nav>
+            <div class="nav-wrapper blue darken-3">
+                <a href="#" class="brand-logo center white-text">effecti</a>
 
-        </div>
-    </nav>
-    <br>
-    <br>
-    <div class="row">
-        <div class="col s12">
-            <div class="input-field inline col s10 m2 offset-s1 offset-m1">
-                <input id="search" type="text" class="validate">
-                <label for="search">Buscar</label>
             </div>
-            <div class="col s12 m10 offset-m1 ">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Item Name</th>
-                            <th>Item Price</th>
-                            <th>Read</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" name="teste" />
-                                    <span></span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>$3.76</td>
-                            <td>
-                                
-                                <label>
-                                    <input type="checkbox" name="teste" />
-                                    <span></span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>$7.00</td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" name="teste" />
-                                    <span></span>
-                                </label>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+        </nav>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col s12">
+                <form id="test" method="post" onsubmit="event.preventDefault">
+                    <div class="input-field inline col s10 m10 l4 offset-s1 offset-m1 offset-l1">
+                        <input id="search" type="text" name="search" @keyup="pickBiddings" class="validate">
+                        <label for="search">Buscar</label>
+                    </div>
+                </form>
+                <div class="col s12 m10 offset-m1 ">
+                    
+                    <custom-table></custom-table>
+                </div>
             </div>
         </div>
     </div>
-    <script src="js/materialize.min.js">
-        M.AutoInit();
-    </script>
+    
+    <script src="https://unpkg.com/vue@next"></script>
     <script>
-        FormData1 = new FormData();
-        FormData1.append('title', 'Teste');
-        fetch('http://localhost/extrator/back-end/licitacoes', {
-            method: 'POST', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
+        app = Vue.createApp({
+            data: function () {
+                return {
+                    biddings: ''
+                };
             },
-            body: FormData1,
+            mounted:function(){
+                this.pickBiddings();
+            },
+            methods: {
+                pickBiddings() {
+                    fetch('http://localhost/extrator/back-end/biddings', {
+                        method: 'post',
+                        body: new FormData(document.querySelector('#test'))
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            // document.getElementById('body').innerHTML = ''
+                            this.biddings = data;
+                        })
+                        .catch((error, data) => {
+                            console.error('Error:', error);
+                        });
+                },
+                test() {
+                    console.log(this.biddings);
+                },
+                
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error, data) => {
-                console.error('Error:', error);
-            });
+        app.component('custom-table', {
+            template: `
+            <table @load="this.$parent.pickBiddings()">
+                        <thead>
+                            <tr>
+                                <th @click="this.$parent.test">Titulo</th>
+                                <th>Informações</th>
+                                <th>Modalidades</th>
+                                <th>Lido</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="body">
+                            <custom-tr v-for="(bidding, i) in this.$parent.biddings" v-bind:title="bidding.title"
+                                :info="bidding.info" :modalities="bidding.modalities" :read="bidding.read" :link="bidding.link"
+                                :id="bidding.id" />
+                        </tbody>
+                    </table>
+
+            `,
+            props: ['biddings']
+            
+        })
+        app.component('custom-tr', {
+            template: `
+            <tr>
+                <td> <a :href="link" target="_blank" >{{ title }}</a></td>
+                <td>{{ info }}</td>
+                <td>{{ modalities }}</td>
+                <td>
+                    <form action="" :id="'check'+id">
+                        <input type="hidden" name="id" :value="id">
+    
+                        <label>
+                            <input type="checkbox" :name="'read'+id" @click="sendReadState(id)" checked value="1" v-if="read" />
+                            <input type="checkbox" :name="'read'+id" @click="sendReadState(id)" value="1" v-else />
+
+                            <span></span>
+                        </label>
+                    </form>
+                </td>    
+            </tr> 
+            `,
+            props: ['title', 'info', 'modalities', 'read', 'id', 'link'], 
+            
+            methods: {
+                sendReadState(id){
+                    fetch('http://localhost/extrator/back-end/read', {
+                        method: 'post',
+                        body: new FormData(document.querySelector('#check'+id))
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            // document.getElementById('body').innerHTML = ''
+                            this.biddings = data;
+                        })
+                        .catch((error, data) => {
+                            console.error('Error:', error);
+                        });
+                }
+            }
+        })
+
+       
+
+        app.mount('#app')
+        document.querySelector("#test").addEventListener("submit", function(event) {
+            event.preventDefault();
+        });
     </script>
 </body>
+<script src="js/materialize.min.js">
+    M.AutoInit();
+</script>
 
 </html>
