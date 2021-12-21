@@ -1,6 +1,6 @@
 <?php
 
-use Riandziuba\Effecti\helper\entityManagerFactory;
+use Riandziuba\Effecti\helper\EntityManagerFactory;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 // replace with file to your own project bootstrap
@@ -10,8 +10,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 // replace with mechanism to retrieve EntityManager in your app
 //$entityManager = GetEntityManager();
 
-$entityManagerFactory = new entityManagerFactory();
-$entityManager = $entityManagerFactory->getEntityManager();
+$EntityManagerFactory = new EntityManagerFactory();
+$entityManager = $EntityManagerFactory->getEntityManager();
 
 return ConsoleRunner::createHelperSet($entityManager);
 

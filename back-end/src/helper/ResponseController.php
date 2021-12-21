@@ -3,7 +3,7 @@
 namespace Riandziuba\Effecti\helper;
 
 
-class responseController {
+class ResponseController {
 
     public static function jsonResponse($object){
 

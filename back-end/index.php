@@ -1,13 +1,13 @@
 <?php
 
-    use Riandziuba\Effecti\helper\responseController;
+    use Riandziuba\Effecti\helper\ResponseController;
     require_once 'vendor/autoload.php';
     $routes   = require __DIR__ . '/config/routes.php';
     //session_save_path(__DIR__.'/../session');
     
     $url = @$_SERVER['PATH_INFO'] ?? '/';
     if(!array_key_exists($url, $routes)) {
-        responseController::jsonResponse([
+        ResponseController::jsonResponse([
             'error' => [
                 'code' => '404',
                 'msg' => 'Path not found'

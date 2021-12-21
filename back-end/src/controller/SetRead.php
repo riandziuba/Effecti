@@ -1,16 +1,15 @@
 <?php
 
 namespace Riandziuba\Effecti\controller;
-use Riandziuba\Effecti\entity\bidding;
-use Riandziuba\Effecti\helper\entityManagerFactory;
-class setRead implements urlControllerInterface{
+use Riandziuba\Effecti\entity\Bidding;
+use Riandziuba\Effecti\helper\EntityManagerFactory;
+class SetRead implements UrlControllerInterface{
 
     private $entity_manager;
     private $bidding_repository;
     
-    public function __construct()
-    {
-        $this->entity_manager = (new entityManagerFactory())
+    public function __construct() {
+        $this->entity_manager = (new EntityManagerFactory())
                 ->getEntityManager();
         $this->bidding_repository = $this->entity_manager
             ->getRepository(bidding::class);
@@ -18,8 +17,8 @@ class setRead implements urlControllerInterface{
 
     public function requestProcess() : void{
         
-        $read = isset($_POST['read'.$_POST['id']])?$_POST['read'.$_POST['id']]:0; 
-        $id = isset($_POST['id'])?$_POST['id']:'';
+        $read = $_POST['read'.$_POST['id']] ?? 0; 
+        $id = $_POST['id'] ?? 0;
         $bidding = $this->bidding_repository->find($id);
         $bidding->setRead($read);
         $this->entity_manager->merge($bidding);

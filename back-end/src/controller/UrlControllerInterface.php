@@ -1,7 +1,7 @@
 <?php
 namespace Riandziuba\Effecti\controller;
 
-interface urlControllerInterface {
+interface UrlControllerInterface {
     
     public function requestProcess() : void;
 }

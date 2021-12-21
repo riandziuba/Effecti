@@ -16,27 +16,29 @@
         <nav>
             <div class="nav-wrapper blue darken-3">
                 <a href="#" class="brand-logo center white-text">effecti</a>
-
+                <ul id="nav-mobile" class="right">
+                    <li><a href="#" @click="extract()">Extrair do Site</a></li>
+                </ul>
             </div>
         </nav>
         <br>
         <br>
         <div class="row">
             <div class="col s12">
-                <form id="test" method="post" onsubmit="event.preventDefault">
+                <form id="searchForm" method="post">
                     <div class="input-field inline col s10 m10 l4 offset-s1 offset-m1 offset-l1">
-                        <input id="search" type="text" name="search" @keyup="pickBiddings" class="validate">
+                        <input id="search" type="text" name="search" autocomplete="off" @keyup="pickBiddings" class="validate">
                         <label for="search">Buscar</label>
                     </div>
                 </form>
                 <div class="col s12 m10 offset-m1 ">
-                    
+
                     <custom-table></custom-table>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://unpkg.com/vue@next"></script>
     <script>
         app = Vue.createApp({
@@ -45,29 +47,40 @@
                     biddings: ''
                 };
             },
-            mounted:function(){
+            mounted: function () {
                 this.pickBiddings();
             },
             methods: {
                 pickBiddings() {
                     fetch('http://localhost/extrator/back-end/biddings', {
                         method: 'post',
-                        body: new FormData(document.querySelector('#test'))
+                        body: new FormData(document.querySelector('#searchForm'))
                     })
                         .then(response => response.json())
                         .then(data => {
-                            console.log('Success:', data);
-                            // document.getElementById('body').innerHTML = ''
                             this.biddings = data;
                         })
                         .catch((error, data) => {
                             console.error('Error:', error);
                         });
                 },
-                test() {
-                    console.log(this.biddings);
+                extract() {
+                    fetch('http://localhost/extrator/back-end/extract', {
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.error)
+                                alert('Ocorreu um problema, favor contatar o suporte');
+                            else{
+                                alert(data.msg);
+                                this.pickBiddings();
+                            }
+                        })
+                        .catch((error, data) => {
+                            console.error('Error:', error);
+                        });
                 },
-                
+
             }
         })
         app.component('custom-table', {
@@ -75,7 +88,7 @@
             <table @load="this.$parent.pickBiddings()">
                         <thead>
                             <tr>
-                                <th @click="this.$parent.test">Titulo</th>
+                                <th>Titulo</th>
                                 <th>Informações</th>
                                 <th>Modalidades</th>
                                 <th>Lido</th>
@@ -91,7 +104,7 @@
 
             `,
             props: ['biddings']
-            
+
         })
         app.component('custom-tr', {
             template: `
@@ -113,31 +126,22 @@
                 </td>    
             </tr> 
             `,
-            props: ['title', 'info', 'modalities', 'read', 'id', 'link'], 
-            
+            props: ['title', 'info', 'modalities', 'read', 'id', 'link'],
+
             methods: {
-                sendReadState(id){
+                sendReadState(id) {
                     fetch('http://localhost/extrator/back-end/read', {
                         method: 'post',
-                        body: new FormData(document.querySelector('#check'+id))
+                        body: new FormData(document.querySelector('#check' + id))
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Success:', data);
-                            // document.getElementById('body').innerHTML = ''
-                            this.biddings = data;
-                        })
-                        .catch((error, data) => {
-                            console.error('Error:', error);
-                        });
                 }
             }
         })
 
-       
+
 
         app.mount('#app')
-        document.querySelector("#test").addEventListener("submit", function(event) {
+        document.querySelector("#searchForm").addEventListener("submit", function (event) {
             event.preventDefault();
         });
     </script>

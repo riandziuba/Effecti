@@ -4,7 +4,7 @@ namespace Riandziuba\Effecti\entity;
  * @Entity 
  * @Table(name="bidding")
  * */
-class bidding {
+class Bidding {
     /**
      * @Column(type="integer", name="id")
      * @GeneratedValue(strategy="IDENTITY")
@@ -32,6 +32,10 @@ class bidding {
      * @Column(type="integer",name="bid_read", nullable=true)
     */
     private $read;
+
+    function getId() : int {
+       return $this->id; 
+    }
     
     function getLink(): string {
         return $this->link;
@@ -78,7 +82,7 @@ class bidding {
 
     function getArrayFormat() : array {
         $array = [];
-        $array['id'] = $this->id;
+        $array['id'] = $this->getId();
         $array['link'] = $this->getLink();
         $array['title'] = html_entity_decode($this->getTitle());
         $array['info'] = html_entity_decode($this->getInfo());
